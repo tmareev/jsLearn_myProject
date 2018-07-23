@@ -69,6 +69,9 @@ body {
 	border: 1px solid black;
 	padding: 5px 5px 5px 25px;
 }
+.active {
+	background-color: red;
+}
 
 
 

@@ -42,20 +42,19 @@ function showHomePage(){
             ]),
             createTag('div', {class: 'footer'}, '', [
                 createTag('div', {class: ''}, '', [
-                    createTag('h3', {id: 'currentElement'}, 'Current tag: ', [])
+                    createTag('h3', {id: 'currentTag'}, `Current tag: `, [])
                 ])
             ]),
         ]),   
     ]);
-
     return insertStatic(homePage);
 }
 
 function showDefMenu(){
     let menuRightDiv = document.getElementById('menuRight');
-    let menuRight = createTag('ul', {class: 'menuItem', contenteditable: true}, '', [
-    createTag('li', {class: 'menuItem', contenteditable: true}, 'hello', []),
-    createTag('li', {class: 'menuItem', contenteditable: true}, 'world', []),
+    let menuRight = createTag('ul', {class: 'menuItem'}, '', [
+    createTag('li', {class: 'menuItem'}, 'hello', []),
+    createTag('li', {class: 'menuItem'}, 'world', []),
     ]);
 
     return insert(menuRight, menuRightDiv);
@@ -67,10 +66,26 @@ function showMenuInHtml(){
     return menuLeftDiv;
 }
 
-
 showHomePage();
 showDefMenu();
 showMenuInHtml();
+
+
+
+function myClick(event){
+    event.target.classList.toggle('active');
+    if(document.querySelector('.active')){
+        document.getElementById('currentTag').textContent = 'Current tag: ' + event.target.tagName;
+    }
+    
+}
+
+let menuBox = document.querySelector('.contentBox');
+menuBox.addEventListener('click', myClick);
+
+
+
+
 
 
 
