@@ -30,10 +30,10 @@ body {
 	background: rgb(122, 80, 120);
 }
 .content {
-	padding-bottom: 80px;
-	padding: 20px;
 	box-sizing: border-box;
 	display: inline-block;
+	width: 100%;
+	padding: 20px 5px;
 	
 }
 .footer {
@@ -51,24 +51,25 @@ body {
 }
 
 .footerBox {
-	width: 40%;
+	width: 50%;
 	display: inline-block;
-}
-
-.content {
-	width: 100%;
-	border: 1px solid red;
-	padding: 20px 5px;
-}
-
-#menuRight {
-	background-color: white;
 }
 
 .menuItem {
 	border: 1px solid black;
 	padding: 5px 5px 5px 25px;
+	
+	background-color: white;
 }
+
+#menuRight {
+	padding: 20px;
+}
+
+#menuLeft {
+	white-space: pre;
+}
+
 .active {
 	background-color: red;
 }
