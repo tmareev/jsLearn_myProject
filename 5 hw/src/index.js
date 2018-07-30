@@ -210,6 +210,7 @@ function resetTextInActive(){
     for(let i = 0; i < findActive().childNodes.length; i++){
         if(findActive().childNodes[i].nodeType == 1){
             hasTag = true;
+            break;
         }
     }
     if(!hasTag){
@@ -221,7 +222,7 @@ function toCreateTag(){
     if(activeExists){
         resetTextInActive();
         let text = getTextFromInput();
-        let errorText = text + ' tag is not allowed. Choose one of: li, div, h1, h2, h3, h4, h5, h6, ul, ol, p'
+        let errorText = text + ' tag is not allowed. Choose one of: li, div, h1, h2, h3, h4, h5, h6, ul, ol, p';
         
         switch(text){
             case 'div': 
