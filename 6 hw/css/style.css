@@ -1,79 +1,44 @@
-* {
-	margin: 0;
-	padding: 0;
-}
-html,
-body {
+html, body, #root {
 	height: 100%;
 	font-family: Arial;
 }
 
-.container {
-	position: relative;
-	height: 100%;
-	width: 100%;
+body {
+	margin: 0;
 	
 }
-.mainDiv {
-	position: relative;
-  	height: 100%;
-	float: left;
-	width: 50%;
-	box-sizing: border-box;
-	padding: 20px;
-}
-.mainLeft {
-	background: rgb(199, 199, 199);
+
+div {
+	border: 1px solid green;
 }
 
-.mainRight {
-	background: rgb(122, 80, 120);
-}
-.content {
-	box-sizing: border-box;
-	display: inline-block;
-	width: 100%;
-	padding: 20px 5px;
-	
-}
-.footer {
-	position: absolute;
-	left: 0;
-	bottom: 0;
-	width: 100%;	
-	height: 80px;
-	border-top: 1px solid black;
-	padding: 20px;
+#root {
+	display: flex;
+	flex-direction: column;
 	box-sizing: border-box;
 }
-.button {
-	width: 80px;
+
+.row {
+	flex: 1;
+	display: flex;
 }
 
-.footerBox {
-	width: 50%;
-	display: inline-block;
+.row:first-child { 
+	flex-grow: 4;
 }
 
-.menuItem {
-	border: 1px solid black;
-	padding: 5px 5px 5px 25px;
-	
-	background-color: white;
-}
-
-#menuRight {
-	padding: 20px;
-}
-
-#menuLeft {
-	white-space: pre;
+.col {
+	flex: 1;
 }
 
 .active {
-	background-color: red;
+	text-decoration: line-through;
+	
 }
 
+.hovered{
+	font-size: 100px;
+}
 
 
 
