@@ -146,34 +146,102 @@ document.getElementById('root').addEventListener('mousemove', function(e){
 // ************************************************
 // РИСУЕМ КРУГИ
 // **********************************************
+// let ctx = canv.getContext('2d');
+// let h = canv.height;
+// let w = canv.width;
+
+// let rows = 10;
+// let cols = 10;
+// let pad = 20;
+// let rad = w / cols;
+
+
+// for(let i = 0; i < rows; i++){
+//     for(let k = 0; k < cols; k++){
+//         let x = rad * k + rad / 2;
+//         let y = rad * i + rad / 2;
+//         let red = Math.floor(255 / rows * (i + 1));
+//         let green = Math.floor(255 / cols * (k + 1));
+        
+//         ctx.beginPath();
+//         ctx.moveTo(x, y);
+
+//         ctx.fillStyle = `rgb(${red}, ${255 - green}, 0)`;
+//         ctx.arc(x, y, rad / 2, 0, Math.PI * 2);
+//         ctx.stroke();
+        
+//         ctx.closePath();
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 let ctx = canv.getContext('2d');
-let h = canv.height;
 let w = canv.width;
-
-let rows = 10;
-let cols = 10;
-let pad = 20;
-let rad = w / cols;
+let h = canv.height;
 
 
-for(let i = 0; i < rows; i++){
-    for(let k = 0; k < cols; k++){
-        let x = rad * k + rad / 2;
-        let y = rad * i + rad / 2;
-        let red = Math.floor(255 / rows * (i + 1));
-        let green = Math.floor(255 / cols * (k + 1));
-        
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-
-        ctx.fillStyle = `rgb(${red}, ${255 - green}, 0)`;
-        ctx.arc(x, y, rad / 2, 0, Math.PI * 2);
-        ctx.fill();
-        
-        ctx.closePath();
-    }
+let ball = {
+    x: 300, y: 300,
+    radius: 10, color: 'green',
+    dx: 3, dy: 1,
 }
+drawBall(ball);
+function drawBall(ball){
+
+    // сейвим состояние
+    ctx.save();
 
 
 
+    // таким способом можно сделать шлейф после шарика.
+    // здесь мы не затираем, а зарисовываем все поле канваса
+    // белым цветом с прозрачность. Чем больше шаг, тем слабее 
+    // шлейф. Попробуй "0.1" и "0.2"
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+    ctx.fillRect(0, 0, w, h);
+
+
+    //  здесь clearRect случжит для зачистки всего 
+    // канваса перед рисованием нового круга
+    // ctx.clearRect(0, 0, w, h);
+    
+    
+
+    ctx.fillStyle = ball.color;
+    ctx.beginPath();
+    ctx.moveTo(ball.x, ball.y);
+    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    
+    ctx.fill();
+    ctx.closePath();
+    ctx.restore();
+    if(ball.y > h || ball.y < 0){
+        ball.dy *= -1;
+    }
+    if(ball.x > w || ball.x < 0){
+        ball.dx *= -1;
+    }
+    ball.x += ball.dx;
+    ball.dy += 4;
+    ball.y += ball.dy;
+
+    // планируем новый вызов функциию
+    // браузер сам решает когда она вызовется, 
+    // но это будет достаточно быстро для человека
+    requestAnimationFrame(function(){
+        drawBall(ball);
+    });
+}
 
