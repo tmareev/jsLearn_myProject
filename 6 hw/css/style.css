@@ -12,33 +12,22 @@ div {
 	border: 1px solid green;
 }
 
+
 #root {
-	display: flex;
-	flex-direction: column;
-	box-sizing: border-box;
+	height: 100%;
+	width: 100%;
+	border: 1px solid greenyellow;
 }
 
-.row {
-	flex: 1;
-	display: flex;
-}
 
-.row:first-child { 
-	flex-grow: 4;
-}
 
-.col {
-	flex: 1;
-}
-
-.active {
-	text-decoration: line-through;
+#btn-stop {
+	position: absolute;
 	
 }
 
-.hovered{
-	font-size: 100px;
+canvas{
+	border: 1px solid blue;
+	width: 700px;
+	height: 700px;
 }
-
-
-
