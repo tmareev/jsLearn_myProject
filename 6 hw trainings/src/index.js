@@ -25,6 +25,12 @@ function insert(element, parent){
 
 function showHomePage(){
     let homePage = createTag('div', {id: 'root'}, '', [
+        // createTag('p', {}, 'p1 text', []),
+        // createTag('form', {}, '', [
+        //     createTag('input', {id: 'inp', value: 'prefilled field'}, '', []),
+        //     createTag('button', {id: 'btn-play'}, 'PLAY', []),
+        //     createTag('button', {id: 'btn-stop'}, 'STOP', []),
+        // ]),
         createTag('canvas', {id: 'canv', width: '700', height: '700'}, '', []),
     ]);
     
@@ -112,72 +118,107 @@ document.getElementById('root').addEventListener('mousemove', function(e){
 
 
 
+// ************************************************
+// РИСУЕМ КВАДРАТИКИ
+// **********************************************
+// let ctx = canv.getContext('2d');
+// let h = canv.height;
+// let w = canv.width;
+
+// let rows = 10;
+// let cols = 10;
+// let pad = 20;
+// let sw = w / cols;
+// let sh = h / rows;
+
+// for(let i = 0; i < rows; i++){
+//     for(let k = 0; k < cols; k++){
+//         let x = sw * k + pad / 2;
+//         let y = sh * i + pad / 2;
+//         let red = Math.floor(255 / rows * (i + 1));
+//         let green = Math.floor(255 / cols * (k + 1));
+//         ctx.fillStyle = `rgb(${red}, ${255 - green}, 0)`;
+//         ctx.fillRect(x, y, sw - pad, sh - pad);
+//     }
+// }
+
+
+// ************************************************
+// РИСУЕМ КРУГИ
+// **********************************************
+// let ctx = canv.getContext('2d');
+// let h = canv.height;
+// let w = canv.width;
+
+// let rows = 10;
+// let cols = 10;
+// let pad = 20;
+// let rad = w / cols;
+
+
+// for(let i = 0; i < rows; i++){
+//     for(let k = 0; k < cols; k++){
+//         let x = rad * k + rad / 2;
+//         let y = rad * i + rad / 2;
+//         let red = Math.floor(255 / rows * (i + 1));
+//         let green = Math.floor(255 / cols * (k + 1));
+        
+//         ctx.beginPath();
+//         ctx.moveTo(x, y);
+
+//         ctx.fillStyle = `rgb(${red}, ${255 - green}, 0)`;
+//         ctx.arc(x, y, rad / 2, 0, Math.PI * 2);
+//         ctx.stroke();
+        
+//         ctx.closePath();
+//     }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 let ctx = canv.getContext('2d');
-let h = canv.height;
 let w = canv.width;
-let tiles = [];
-
-function drawTiles(){
-    ctx.save();
-    ctx.fillStyle = 'brown';
-    let rows = 7;
-    let cols = 10;
-    let rectWith = w / cols;
-    let rectHeight = h / 2 / rows;
-    let padd = rectWith / 3;
-    
-
-    for(let i = 0; i < rows; i++){
-        for(let k = 0; k < cols; k++){
-            let x = rectWith * k + padd / 2;
-            let y = rectHeight * i + padd / 2;
-            ctx.fillRect(x, y, rectWith - padd, rectHeight - padd);
-            
-            // let oneTile = {upL: {x, y}, upR: {x, y}, downL: {x, y}, downR: {x, y}}
-            
-            if(!tiles.length){
-                let oneTile = {};
-
-                oneTile.upL = {};
-                oneTile.upR = {};
-                oneTile.downL = {};
-                oneTile.downR = {};
-
-                
-                oneTile.upL.tileX = x;
-                oneTile.upL.tileY = y;
-
-                oneTile.upR.tileX = x + (rectWith - padd);
-                oneTile.upR.tileY = y;
-
-                oneTile.downL.tileX = x;
-                oneTile.downL.tileY = y + rectHeight - padd;
-
-                oneTile.downR.tileX = x + (rectWith - padd);
-                oneTile.downR.tileY = y + rectHeight - padd;
-                
-                tiles.push(oneTile);
-                console.log(tiles);
-            }
-            
-        }
-    }
-
-    ctx.restore();
-}
+let h = canv.height;
 
 
 let ball = {
     x: 300, y: 300,
-    radius: 8, color: 'green',
+    radius: 10, color: 'green',
     dx: 3, dy: 1,
 }
-
+drawBall(ball);
 function drawBall(ball){
+
+    // сейвим состояние
     ctx.save();
-    ctx.clearRect(0, 0, w, h);
+
+
+
+    // таким способом можно сделать шлейф после шарика.
+    // здесь мы не затираем, а зарисовываем все поле канваса
+    // белым цветом с прозрачность. Чем больше шаг, тем слабее 
+    // шлейф. Попробуй "0.1" и "0.2"
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.25)';
+    ctx.fillRect(0, 0, w, h);
+
+
+    //  здесь clearRect случжит для зачистки всего 
+    // канваса перед рисованием нового круга
+    // ctx.clearRect(0, 0, w, h);
     
+    
+
     ctx.fillStyle = ball.color;
     ctx.beginPath();
     ctx.moveTo(ball.x, ball.y);
@@ -186,16 +227,6 @@ function drawBall(ball){
     ctx.fill();
     ctx.closePath();
     ctx.restore();
-    
-    for(let i = 0; i < tiles.length; i++){
-        if (ball.y > tiles[i].y){
-            ball.dy *= -1;
-        }
-        if(ball.x == tiles[i].x){
-            ball.dx *= -1;
-        }
-    }
-
     if(ball.y > h || ball.y < 0){
         ball.dy *= -1;
     }
@@ -203,14 +234,14 @@ function drawBall(ball){
         ball.dx *= -1;
     }
     ball.x += ball.dx;
+    ball.dy += 4;
     ball.y += ball.dy;
 
+    // планируем новый вызов функциию
+    // браузер сам решает когда она вызовется, 
+    // но это будет достаточно быстро для человека
     requestAnimationFrame(function(){
         drawBall(ball);
-        drawTiles();
     });
 }
-
-drawBall(ball);
-
 

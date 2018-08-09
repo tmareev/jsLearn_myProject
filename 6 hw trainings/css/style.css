@@ -1,0 +1,33 @@
+html, body, #root {
+	height: 100%;
+	font-family: Arial;
+}
+
+body {
+	margin: 0;
+	
+}
+
+div {
+	border: 1px solid green;
+}
+
+
+#root {
+	height: 100%;
+	width: 100%;
+	border: 1px solid greenyellow;
+}
+
+
+
+#btn-stop {
+	position: absolute;
+	
+}
+
+canvas{
+	border: 1px solid blue;
+	width: 700px;
+	height: 700px;
+}
