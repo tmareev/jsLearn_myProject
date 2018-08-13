@@ -1,5 +1,4 @@
 function createTag(tagName, attrs={}, text, children=[]){
-    
     let element = document.createElement(tagName);
     for (let attr in attrs){
         element.setAttribute(attr, attrs[attr]);
@@ -12,205 +11,208 @@ function createTag(tagName, attrs={}, text, children=[]){
     }
     return element;
 }
-
 function insertStatic(element){
     let body = document.body;
     let script = body.querySelector('script');
     return body.insertBefore(element, script);
 }
-
-function insert(element, parent){
-    return parent.appendChild(element);
-}
-
 function showHomePage(){
     let homePage = createTag('div', {id: 'root'}, '', [
-        createTag('canvas', {id: 'canv', width: '700', height: '700'}, '', []),
+        createTag('div', {id: 'container'}, '', [
+            createTag('canvas', {id: 'canv', width: '700', height: '700'}, '', []),
+        ]),        
     ]);
     
     return insertStatic(homePage);
 }
-
 showHomePage();
 
 
-// let i = 5;
-//  function test(event){
-//     console.log('test loaded! count = ' + i);
-//     --i;
-//     if(i < 1){
-//         event.target.removeEventListener('click', test);
-//     }
-// }
-// function reWrap(){
-//     i = 5;
-//     btnPlay.removeEventListener('click', test);
-//     btnPlay.addEventListener('click', test);
-// }
-// let btnPlay = document.getElementById('btn-play');
-// btnPlay.addEventListener('click', test);
-// btnPlay.addEventListener('click', (function(){
-//     let ff = 100;
-//     return function(){
-//         --ff;
-//         console.log(ff);
-//     }
-// })());
-// let btnStop = document.getElementById('btn-stop');
-// btnStop.addEventListener('click', reWrap);
 
 
 
 
-// function test(event){
-//     if (event.currentTarget == document.getElementById('btn-play')){
-//         event.stopPropagation();
-//     }
-//     console.log('click!', event.currentTarget);
-// }
+const ctx = canv.getContext('2d');
+const canvasHeight = canv.height;
+const canvasWidth = canv.width;
+const columns = 10;
+const rows = 5;
 
-
-
-
-// document.getElementById('btn-play').addEventListener('click', test);
-// document.getElementById('root').addEventListener('click', test);
-// document.body.addEventListener('click', test);
-// document.addEventListener('click', test);
-
-
-// document.getElementById('root').addEventListener('mousedown', function(e){
-//     e.target.classList.add('chosen');
-// });
-// document.getElementById('root').addEventListener('mouseup', function(e){
-//     e.target.classList.remove('chosen');
-// });
-
-// document.getElementById('root').addEventListener('mousemove', function(e){
-//     if(document.querySelector('.chosen')){
-//         e.target.style.top = e.clientY - 10 + 'px';
-//         e.target.style.left = e.clientX - 10 + 'px';
-//     }
-// });
-
-
-
-
-
-/**************************************
- *  двигает кнопку стоп по всему полю 
- * *************************************
- * 
-document.getElementById('root').addEventListener('mousemove', function(e){
-    document.getElementById('btn-stop').style.top = e.clientY - 10 + 'px';
-    document.getElementById('btn-stop').style.left = e.clientX - 10 + 'px';
-    
-});
-*/
-
-
-
-
-
-
-
-let ctx = canv.getContext('2d');
-let h = canv.height;
-let w = canv.width;
-let tiles = [];
-
-function drawTiles(){
-    ctx.save();
-    ctx.fillStyle = 'brown';
-    let rows = 7;
-    let cols = 10;
-    let rectWith = w / cols;
-    let rectHeight = h / 2 / rows;
-    let padd = rectWith / 3;
-    
-
-    for(let i = 0; i < rows; i++){
-        for(let k = 0; k < cols; k++){
-            let x = rectWith * k + padd / 2;
-            let y = rectHeight * i + padd / 2;
-            ctx.fillRect(x, y, rectWith - padd, rectHeight - padd);
-            
-            // let oneTile = {upL: {x, y}, upR: {x, y}, downL: {x, y}, downR: {x, y}}
-            
-            if(!tiles.length){
-                let oneTile = {};
-
-                oneTile.upL = {};
-                oneTile.upR = {};
-                oneTile.downL = {};
-                oneTile.downR = {};
-
-                
-                oneTile.upL.tileX = x;
-                oneTile.upL.tileY = y;
-
-                oneTile.upR.tileX = x + (rectWith - padd);
-                oneTile.upR.tileY = y;
-
-                oneTile.downL.tileX = x;
-                oneTile.downL.tileY = y + rectHeight - padd;
-
-                oneTile.downR.tileX = x + (rectWith - padd);
-                oneTile.downR.tileY = y + rectHeight - padd;
-                
-                tiles.push(oneTile);
-                console.log(tiles);
-            }
-            
-        }
-    }
-
-    ctx.restore();
+let platform = {
+    width:  canvasWidth / 7,
+    height: canvasHeight / 50, 
+    padd: 0,
+    x: canvasWidth / 2 - canvasWidth / 7,
+    y: canvasHeight / 7 * 6,
+    color: 'rgb(95, 128, 46)',
 }
 
-
 let ball = {
-    x: 300, y: 300,
-    radius: 8, color: 'green',
+    x: canvasWidth / 2 , y: canvasHeight / 5 * 3,
+    radius: 8, color: 'rgb(117, 117, 235)',
     dx: 3, dy: 1,
 }
 
-function drawBall(ball){
-    ctx.save();
-    ctx.clearRect(0, 0, w, h);
+// let tile = {
+//     width:  canvasWidth / 10,
+//     height: canvasHeight / 2 / 6, 
+//     padd: 30,
+//     x: 0,
+//     y: 0,
+//     color: 'rgb(95, 128, 46)',
+//     showTile: 1,
+// }
+
+
+
     
-    ctx.fillStyle = ball.color;
+
+let allTiles = [];
+for(let i = 0; i < rows; i++){
+    allTiles[i] = [];
+    for(let k = 0; k < columns; k++){
+        allTiles[i][k] = {x: 0, y: 0, showTile: 1};
+    }
+}
+
+
+
+
+tileWidth = canvasWidth / 10;
+tileHeight = canvasHeight / 2 / 6;
+tilePadd = 30;
+ 
+function drawTiles(){
+    for(let i = 0; i < rows; i++){
+        for(let k = 0; k < columns; k++){
+            if(allTiles[i][k].showTile == 1){
+                let tileX = tileWidth * k + tilePadd / 2;
+                let tileY = tileHeight * i + tilePadd / 2;
+                allTiles[i][k].x = tileX;
+                allTiles[i][k].y = tileY;
+                ctx.beginPath();
+                ctx.save();
+                ctx.fillStyle = 'blue';
+                ctx.fillRect(tileX, tileY, tileWidth - tilePadd, tileHeight - tilePadd);
+                ctx.restore();
+                ctx.closePath();
+            }
+        }
+    }
+}
+
+function hideTiles(){
+    for(let i = 0; i < rows; i++){
+        for(let k = 0; k < columns; k++){
+            let b = allTiles[i][k];
+            if(b.showTile == 1){
+                if(ball.x > b.x && 
+                    ball.x < b.x + tileWidth &&
+                    ball.y > b.y &&
+                    ball.y < b.y + tileHeight){
+                        ball.dy *= -1;
+                        b.showTile = 0;
+                }
+            }
+        }
+    }
+}
+
+
+
+function createRect(rect){
     ctx.beginPath();
-    ctx.moveTo(ball.x, ball.y);
-    ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI * 2);
+    ctx.save();
+    ctx.fillStyle = rect.color;
+    ctx.fillRect(rect.x, rect.y, rect.width - rect.padd, rect.height - rect.padd);
+    ctx.restore();
+    ctx.closePath();
+}
+
+function drawPlatform(){
+    createRect(platform);
+}
+
+canv.addEventListener('mousemove', function(e){
+    platform.x = e.clientX - platform.width / 2;
     
+    if(e.clientX < platform.width / 2){
+        platform.x = 0;
+    } 
+    if(e.clientX > canvasWidth - platform.width / 2){
+        platform.x = canvasWidth - platform.width;
+    }
+});
+
+
+
+
+
+
+function createBall(arc){
+    ctx.save();
+    ctx.fillStyle = arc.color;
+    ctx.beginPath();
+    ctx.moveTo(arc.x, arc.y);
+    ctx.arc(arc.x, arc.y, arc.radius, 0, Math.PI * 2);
     ctx.fill();
     ctx.closePath();
     ctx.restore();
-    
-    for(let i = 0; i < tiles.length; i++){
-        if (ball.y > tiles[i].y){
-            ball.dy *= -1;
-        }
-        if(ball.x == tiles[i].x){
-            ball.dx *= -1;
-        }
-    }
-
-    if(ball.y > h || ball.y < 0){
-        ball.dy *= -1;
-    }
-    if(ball.x > w || ball.x < 0){
-        ball.dx *= -1;
-    }
-    ball.x += ball.dx;
-    ball.y += ball.dy;
-
-    requestAnimationFrame(function(){
-        drawBall(ball);
-        drawTiles();
-    });
 }
 
-drawBall(ball);
 
 
+
+
+function drawBall(arc){
+    createBall(arc);
+    arc.x += arc.dx;
+    arc.y += arc.dy;
+
+    if(arc.y < 0){
+        arc.dy *= -1;
+    }
+    if(arc.x > canvasWidth || arc.x < 0){
+        arc.dx *= -1;
+    }
+
+    if (arc.y > platform.y &&
+        arc.x > platform.x && 
+        arc.x < platform.x + platform.width){
+            arc.dy *= -1;
+    }
+
+    if(arc.y > canvasHeight){
+        gameOver();
+    }
+
+    
+}
+
+
+
+
+
+
+
+function gameOver(){
+    ctx.save();
+    ctx.font = '60px Arial';
+    ctx.fillStyle = 'red';
+    ctx.fillText('Game Over', canvasWidth/4, canvasHeight/2);
+    ctx.restore();
+}
+
+
+
+function launchGame(){
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    drawTiles();
+    drawBall(ball);
+    drawPlatform();
+    hideTiles();
+    
+    
+}
+
+setInterval(launchGame, 10);

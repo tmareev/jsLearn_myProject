@@ -8,26 +8,15 @@ body {
 	
 }
 
-div {
-	border: 1px solid green;
-}
-
 
 #root {
 	height: 100%;
 	width: 100%;
-	border: 1px solid greenyellow;
-}
-
-
-
-#btn-stop {
-	position: absolute;
-	
+	border: 1px solid rgb(95, 128, 46);
 }
 
 canvas{
-	border: 1px solid blue;
+	border: 1px solid rgb(117, 117, 235);
 	width: 700px;
 	height: 700px;
 }
