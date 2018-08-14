@@ -11,7 +11,7 @@ body {
 #root {
 	height: 100%;
 	width: 100%;
-	border: 1px solid greenyellow;
+	border: 1px solid #689721;
 	
 
 }
@@ -27,4 +27,9 @@ canvas{
 	width: 700px;
 	height: 700px;
 	
+}
+
+#btnNewGame {
+	border: 3px solid #689721;
+	background: rgb(102, 160, 26);
 }

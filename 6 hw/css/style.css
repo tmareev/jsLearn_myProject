@@ -20,3 +20,9 @@ canvas{
 	width: 700px;
 	height: 700px;
 }
+
+#btnNewGame {
+	position: relative;
+	border: 3px solid #689721;
+	background: rgb(102, 160, 26);
+}
