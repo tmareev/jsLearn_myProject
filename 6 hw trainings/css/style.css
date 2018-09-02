@@ -5,29 +5,31 @@ html, body, #root {
 
 body {
 	margin: 0;
-	
-}
-
-div {
-	border: 1px solid green;
 }
 
 
 #root {
 	height: 100%;
 	width: 100%;
-	border: 1px solid greenyellow;
+	border: 1px solid #689721;
+	
+
 }
 
-
-
-#btn-stop {
-	position: absolute;
-	
+#container {
+	position: relative;
+	top: 50%;
+	left: 50%;
 }
 
 canvas{
 	border: 1px solid blue;
 	width: 700px;
 	height: 700px;
+	
+}
+
+#btnNewGame {
+	border: 3px solid #689721;
+	background: rgb(102, 160, 26);
 }
