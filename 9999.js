@@ -1,57 +1,202 @@
-// let arr = [7, 2, 3, 0, 5, 4, 9, 0];
-// let temp;
+'use strict'
 
-// for(let i = 0; i < arr.length - 2; i++){
-//     for(let ii = 1; ii < arr.length; ii++){
-        
-//         let first = arr[ii];
-//         let second = arr[ii - 1];
-        
-//         if(arr[ii] < arr[ii - 1]){
-//             temp = arr[ii];
-//             arr[ii] = arr[ii - 1];
-//             arr[ii - 1] = temp;
-//         }
-//         console.log(arr);
+// function toCount(){
+//     let perem = 1;
+    
+//     function count(){
+//         return perem++;
 //     }
-//     console.log('_'.repeat(100));
+
+//     count.set = function(param){
+//         perem = param;
+//     }
+
+//     count.reset = function(){
+//         perem = 1;
+//     }
+
+
+//     return count;
 // }
 
 
-// for(let i = 0; i < arr.length - 1; i++){
-//     for(let ii = i + 1; ii < arr.length; ii++){
-//         if(arr[i] > arr[ii]){
-//             let l = arr[i];
-//             let iI = arr[ii];
-            
-//             temp = arr[ii];
-//             arr[ii] = arr[i];
-//             arr[i] = temp;
-//         }
-//         console.log(arr);
+// let check = toCount();
+// console.log(check());
+// console.log(check());
+// console.log(check());
+
+// check.set(33);
+// console.log(check());
+// console.log(check());
+// console.log(check());
+// check.reset();
+// console.log(check());
+// console.log(check());
+
+
+// **********1111************
+// function sum(first){
+//     return function(second){
+//         return second + first;
 //     }
 // }
 
+// console.log(sum(1)(4));
 
-// let arr1 = [2, 4, 5, 6, 67, 23, 2, 1];
 
-// function main(arr, func){
-//     let result = [];
+
+// **********2***********
+// function buffer(){
+//     let temp = '';
+//     return function toConcat(value){
+//         if(value === undefined){
+//             return temp; 
+//         }
+//         temp += value;  
+//     }
+// }
+
+// let buf = buffer();
+// buf(2);
+// console.log(buf());
+// buf('test');
+// buf(9);
+// console.log(buf(true));
+// console.log(buf());
+
+// 2-3
+// function buffer(){
+//     let tempValue = '';
+//     function aa(value){
+//         if(value === undefined){
+//             return tempValue;
+//         }
+//         tempValue += value;
+//     }
+//     aa.clear = function(){
+//         tempValue = '5';
+//     }
+//     return aa;
+// }
+
+// let ff = buffer();
+// ff(1);
+// ff('test');
+// ff(true);
+// ff(NaN);
+// console.log(ff());
+// ff.clear();
+// console.log(ff());
+
+
+// let array1 = [2, 4, 1, 5, 3, 8]; 
+// function filter(arr, func){
+//     let res = [];
 //     for(let i = 0; i < arr.length; i++){
-//         let temp = func(arr[i]);
-//         if(temp){
-//             result.push(temp);
+//         let val = arr[i];
+//         if(func(val)){
+//             res.push(val);
 //         }
 //     }
-//     return result;
+//     return res;
 // }
 
-// let g = main(arr1, function(anyItem){
-//                         if (anyItem < 6) {
-//                             return anyItem *= 2;
-//                         }
-//                     });
-// console.log(g);
+// function func(value){
+//     return value % 2 == 0;
+// }
 
-let arr1 = [2, 4, 5, 6, 67, 23, 2, 1];
-arr1 = Array(5).fill(7).map();
+
+// function inBetween(a, b){
+//     return function (x){
+//         if(x >= a && x <= b){
+//             return true;
+//         }
+//     }
+// }
+
+// function inArray(arr){
+//     return function(x){
+//         for(let i = 0; i < arr.length; i++){
+//             if(x === arr[i]){
+//                 return true;
+//             }
+//         }
+//     } 
+// }
+
+// console.log(filter(array1, func));
+// console.log(filter(array1, inBetween(1, 4)));
+// console.log(filter(array1, inArray([1, 3])));
+
+
+
+
+// function makeArmy() {
+//     var shooters = [];
+//     for (var i = 0; i < 10; i++) {
+//         let yy = i;
+//         var shooter = function() { // функция-стрелок
+//         console.log( yy ); // выводит свой номер
+//       };
+//       shooters.push(shooter);
+//     }
+  
+//     return shooters;
+//   }
+  
+//   var army = makeArmy();
+  
+//   army[0](); // стрелок выводит 10, а должен 0
+//   army[5]();
+
+
+
+// function Human(age, size){
+//     this.age = age;
+//     this.size = size;
+// }
+
+// Human.prototype.toCount = function(){
+//     return this.age + this.size;
+// };
+
+// let man = new Human(13, 33);
+ 
+// // console.log(man.constructor);
+// console.log(Human.prototype.constructo
+// r);
+
+
+// let arr = [2, 5, 6, 8,];
+
+// console.log(arr);
+
+// console.log(...arr)
+
+
+
+class Human {
+    constructor(age){
+        this.age = age + 11;
+    }
+}
+
+class Woman extends Human{
+    constructor(tt){
+        super(tt);
+        this.tt = tt;
+    }
+} 
+
+let aa = new Woman(4);
+console.log(aa.age, aa.tt);
+
+
+
+
+
+
+
+
+
+

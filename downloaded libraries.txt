@@ -27,3 +27,10 @@ ________________________________________________________________________________
 npm install node-static
 простой запуск 
 ....6 hw>node_modules\.bin\static
+
+**********************************************************************
+MongoDB:
+устанавливаем mongoDb с их сайта,
+читаем документацию по установке https://docs.mongodb.com/manual/tutorial/install-mongodb-on-windows/ .
+запускаем сервер через консоль -  "C:\Program Files\MongoDB\Server\4.0\bin\mongod.exe" --dbpath="c:\data\db"
+запускаем монгоДБ через консоль - "C:\Program Files\MongoDB\Server\4.0\bin\mongo.exe"
