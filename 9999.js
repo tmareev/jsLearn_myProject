@@ -175,25 +175,39 @@
 
 
 
-class Human {
-    constructor(age){
-        this.age = age + 11;
-    }
+// class Human {
+//     constructor(age){
+//         this.age = age + 11;
+//     }
+// }
+
+// class Woman extends Human{
+//     constructor(tt){
+//         super(tt);
+//         this.tt = tt;
+//     }
+// } 
+
+// let aa = new Woman(4);
+// console.log(aa.age, aa.tt);
+
+
+function test(func){
+    // console.log('test');
+    return func();
 }
 
-class Woman extends Human{
-    constructor(tt){
-        super(tt);
-        this.tt = tt;
-    }
-} 
+function gg(func){
+    // console.log('second function');
+    return func();
+}
 
-let aa = new Woman(4);
-console.log(aa.age, aa.tt);
+function ff(){
+    console.log('third function')
+}
 
-
-
-
+let temp = test(gg);
+temp(ff);
 
 
 
