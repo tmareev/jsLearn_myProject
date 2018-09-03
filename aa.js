@@ -23,10 +23,23 @@
 
 // }
 
-let count = 10;
-let a = count;
-let b = count;
-count = 6;
 
 
-console.log(count, a, b);
+
+
+
+
+
+
+
+// bool, number, string, Nan, undefined, null, obj, arr
+
+
+
+
+let res = prompt("test");
+while(res){
+    if(res > 100){
+        break;
+    }
+}

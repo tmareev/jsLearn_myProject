@@ -1,57 +1,66 @@
-// let arr = [7, 2, 3, 0, 5, 4, 9, 0];
-// let temp;
-
-// for(let i = 0; i < arr.length - 2; i++){
-//     for(let ii = 1; ii < arr.length; ii++){
-        
-//         let first = arr[ii];
-//         let second = arr[ii - 1];
-        
-//         if(arr[ii] < arr[ii - 1]){
-//             temp = arr[ii];
-//             arr[ii] = arr[ii - 1];
-//             arr[ii - 1] = temp;
-//         }
-//         console.log(arr);
-//     }
-//     console.log('_'.repeat(100));
-// }
-
-
-// for(let i = 0; i < arr.length - 1; i++){
-//     for(let ii = i + 1; ii < arr.length; ii++){
-//         if(arr[i] > arr[ii]){
-//             let l = arr[i];
-//             let iI = arr[ii];
-            
-//             temp = arr[ii];
-//             arr[ii] = arr[i];
-//             arr[i] = temp;
-//         }
-//         console.log(arr);
+// function AAA (name = 'defaultUser', sec = '7777'){
+//     this.name = name;
+//     this.sec= sec;
+//     this.fun = function(){
+//         console.log(this)
 //     }
 // }
 
+// let gg = new AAA('taras', 13);
+// gg.__proto__.newFun = function(){
+//     console.log(`your name is ${this.name} and your time is ${this.sec}`);
+// } 
+// gg.newFun();
+// let newGg = new AAA;
+// newGg.newFun();
 
-// let arr1 = [2, 4, 5, 6, 67, 23, 2, 1];
-
-// function main(arr, func){
-//     let result = [];
-//     for(let i = 0; i < arr.length; i++){
-//         let temp = func(arr[i]);
-//         if(temp){
-//             result.push(temp);
-//         }
+// class Human {
+//     constructor(gender){
+//         this.gender = gender;
 //     }
-//     return result;
-// }
+//     sayName(){
+//         console.log(this.gender);
+//     }
+//     static Man(beard){
+//         let ff = new Human('man');
+//         ff.beardHeight = beard;
+//         ff.sayHeight = function(){
+//             console.log(`My beard is about ${this.beardHeight} cm`);
+//         }
+//         return ff;
+//     }
+//     static Woman(boobs){
+//         this.boobsSize = boobs;
+//         return new Human('woman');
+//     }
+// } 
 
-// let g = main(arr1, function(anyItem){
-//                         if (anyItem < 6) {
-//                             return anyItem *= 2;
-//                         }
-//                     });
-// console.log(g);
+// let Katya = Human.Woman(3);
+// let Oleg = Human.Man(15);
+// Oleg.sayHeight();
 
-let arr1 = [2, 4, 5, 6, 67, 23, 2, 1];
-arr1 = Array(5).fill(7).map();
+
+// console.log('hi');
+
+// setTimeout(()=>{console.log('there')}, 3000);
+// console.log('taras');
+
+let fruit = {
+    say: function(){
+        console.log('hiiii');
+    }
+}
+
+let appleProto = Object.create(fruit);
+appleProto.create = function(name){
+    return Object.create(this, {
+        name: {value: name}
+    });
+}
+
+let apple = appleProto.create('greenapple')
+
+apple.say();
+
+
+
