@@ -1,5 +1,6 @@
 const mongo = require('mongodb');
 const url = 'mongodb://127.0.0.1:27017';
+const ObjectId = mongo.ObjectID;
 const connection = mongo.connect(url, 
     {useNewUrlParser: true}, 
     onConnect,
@@ -20,8 +21,8 @@ function onConnect(err, client){
     // // добавляем запись (document). Обязательно это должен быть объект
     // let data1 = {name: 'Taras', age: 26};
     // let data2 = {name: 'Dasha', age: 23};
-    // col.insertOne(data2, onInsert);
-    // // добавляем несколько записей (documents) в коллекцию. Передавать нужно массив объектов
+    // // col.insertOne(data2, onInsert);
+    // // // добавляем несколько записей (documents) в коллекцию. Передавать нужно массив объектов
     // col.insertMany([data1, data2]);
     
     
@@ -31,7 +32,9 @@ function onConnect(err, client){
     // // А затем мы уже их формируем и считываем в onFound и onArrayConverted
     // col.find(onFound);
     // // // или можно написать поиск по точному значению но ничего не вписывать 
-    // // col.find({}, onFound);
+    // col.find({}, onFound);
+
+    
 
     // // поиск ОПРЕДЕЛЕННОГО элемента по точному значению 
     // // col.find({name: 'Taras'}, onFound);
@@ -41,6 +44,9 @@ function onConnect(err, client){
     // col.find({
     //     xxx: 'b'
     // },onFound);
+
+    // // поиск по id происходит с помощью ObjectID из монго
+    // col.find({_id: ObjectId("5b8e56ec6e7fb522d01de69c")}, onFound);
 
     // // так найдутся только те элементы у которых только одно значение b в ххх и все:
     // col.find({
