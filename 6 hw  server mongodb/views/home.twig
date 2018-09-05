@@ -7,15 +7,80 @@
 	<link rel="stylesheet" type="text/css" href="css/style.css">
 </head>
 <body>
-	
-    {# Это twig комментарии. Они не видны в исходниках страницы #}
-    
-    <h1>3 * 5 = {{3 * 5}}</h1>
+	   
+    {# <h1>3 * 5 = {{3 * 5}}</h1>
+    <h2> {{greeting}} </h2>
 
     <ul>
         {% for i in 1..5%}
             <li> {{ i }} </li>
         {% endfor %}
     </ul>
+
+    <h1> #}
+
+
+    {# 
+    Якорь, хеш (anchor)  - оно не влияет на отображение страницы, все что 
+    написано после #.
+    
+    Строка запроса (query string)- это все что написано после ? . 
+    Оно не влияет на роут и отрисовку, она может влиять на характеристики 
+    обрабатываемой станицы. Она нужны чтобы передать какие-то доп данные
+    на страницу. Несколько значений можно писать через &.
+    Строка запроса имеет примерно такой вид:
+    localhost:3000?name=Taras&age=26
+    #}
+
+    <!-- разбиваем строку запроса
+        {% for part in req.url | split('&') %}
+            {{ part }} <br/>
+        {% endfor %} {# но это слишклом муторно, поэтому юзаем express 
+        фукционал#}
+
+
+        {# req.query -объект содержащий все значений с ключами введенные после "?"
+        - это GET запросы #}
+        {{  req.query.age }} </br>
+        {# здесь будет автоматически подтягиваться имя вписанное в запросе #}
+        {{ greeting }}, {{ name }}
+    </h1> -->  
+
+    <form>
+
+    {# Здесь например значение поля range будет отображать рядом в спане 
+        <input id="r" name="x" type="range">
+        <span id="rangeValue"></span>
+        <script>
+            r.addEventListener('input', function(e){
+                rangeValue.textContent = e.target.value;
+            })
+        </script>
+        <input name="btnGGG" type="submit" value="Sub"> #} 
+
+
+
+
+{# "ЦВЕТ"  Здесь можем отправить на сервер цвет и сделать его бекграундом.
+    Смотри "ЦВЕТ" в express.Learn.js 
+        <style>
+            body{
+                background: {{ colo }};
+            }
+        </style> 
+
+        <input name="colorrry" type="color">
+        <button> Submiittted</button> #}
+        
+        
+        <input name="test" type="text">
+        <button> Submiittted</button> 
+
+    </form>
+
+    
+   
+
+
 </body>
 </html>

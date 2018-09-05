@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>test project</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+    {# Типы инпутов <input type="тип"> (без закрывающего тега):
+    - text(можно не указывать он по дефолту ставится) просто текстовое поле;
+    - number - текстовое поле в которое вводятся только целые числа. Для ввода дробей
+    нужно добавить параметр step=" "(минимальное дробное значение поля).
+    Например step="0.1". Также можно указать параметры min и max - 
+    минимальное и максимальное допустимое число
+    - email - текстовое поле которое валидируется на @ и текст по бокам.
+    - url - текст. поле принимающее url с указаным протоколом
+    - range - ползунок. Он имеет такие же step, min и max параметры.
+    - color - можно выбрать цвет и отправить его на сабмит
+    - date - поле с датой, отображение на сайте зависит от настроек компа.
+    На сервер всегда будет приходить в виде год-месяц-число.
+    - time - поле со временем,отображение на сайте зависит от настроек компа.
+    На сервер всегда будет приходить в видечас:минуты:секунды.
+    - checkbox - чекбокс. если ниче не отмечено то на сервер ничего не отправится.
+    Если отметился - то прийдет ON (но можно укзать value и прийдет оно). 
+    (Критерий - ДА\НЕТ). Атрибут checked сделает чекбокс отмеченым дефолтно.
+    - radio - радиобаттон. Если есть несколько радио с одинаковым name то выбрать
+    можно будет только один из них(Критерий - выбрать один из множества).
+    здесь имеет смысл указывать value со значением, т.к. именно это value 
+    и отправится на сервер. #}
+    
+    {# Нобычные инпуты:
+    - textarea (парный тего <textarea></textarea>). Атрибут name обязательный 
+    чтоб ухватить данные на сервер. Дефолтное значение вписывается между тегами а не 
+    в value.
+    - select(парный) - список. name - обязательно. Формируется из option (тоже парного).
+    На сервер  отправится либо value опции, либо если value не указано, то прийдет 
+    то что указано между тегами option. Опцию можно "предвыбрать" добавив ей 
+    атрибут selected.#}
+
+    {# любому инпуту можно добавить аттрибуты которые влияют на валидацию:
+    - required - если не выбрано то выдаст алерт при сабмите.
+    - readonly - делает инпут немодифицированным (нельзя ничего изменить), но 
+    если есть дефолтное значение то оно отправится на сервер
+    - disabled - делает инпут немодифицированным, но на сервер ничего не прийдет вообще
+    - pattern - например можно сделать так, чтобы инпут принимал только три буквы
+    pattern="\w\w\w". Тогда можно будет отправить только поле вписав три буквы
+    #}
+
+	<form>
+        <label> your login 
+            <input type="email" name="login" required>
+        </label> </br>  
+        <label> your password
+            <input name="password" required>
+        </label> <br>
+        <label> phone
+            <input type="tel" name="phone">
+        </label><br>
+        <fieldset>
+            <legend> <b>Size</b> <br>
+                <label> 
+                    <input type="radio" name="size" value="small">
+                    small
+                </label><br>
+                <label> 
+                    <input type="radio" name="size" value="med">
+                    medium
+                </label><br>
+                <label> 
+                    <input type="radio" name="size" value="large">
+                    large
+                </label>
+            </legend> <br>
+        </fieldset>
+           
+        <label> Start time
+            <input type="time" name="callStart" min="9:00" max="21:00" step="600">
+        </label>  <br>
+
+        <label> Call type
+            <select name="callType">
+                <option value="single"> Single call </option>
+                <option value="group"> Group call</option>
+            </select>
+        </label> <br>
+
+        <label> Call topics
+            <select name="callTopics">
+                <option value="testing"> Testing </option>
+                <option value="development"> Development</option>
+            </select>
+        </label> <br>
+
+        <label> Comments
+            <textarea name="comments" rows="20" col="50"></textarea>
+        </label>  <br>
+
+
+        {# если инпут написан с явно укзанным типом submit, то name 
+        не обязательный, если этот инпут служит только для отправки данных#}
+        <input type="submit" value="Btn Submit">
+        
+        <button>Send</button> 
+        
+        
+    </form>
+
+
+</body>
+</html>
