@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>test project</title>
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+</head>
+<body>
+	
+    
+    
+    <h1>Blog</h1>
+    {% for post in posts %} 
+	<div>	
+		<h2>Title: {{ post.title }} </h2>
+		<p> {{ post.content }}</p>
+
+	</div>
+	{% endfor %}   
+
+	<form method="post">
+		<label> label
+			<input name="title" type="text" required placeholder="enter here">
+		</label>
+		</br>
+		<textarea name="content" ></textarea>
+		</br>
+		<input type="submit" value="Submit">
+	</form>
+
+
+</body>
+</html>
