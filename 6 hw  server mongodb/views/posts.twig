@@ -9,26 +9,47 @@
 <body>
 	
     
-    
-    <h1>Blog</h1>
-    {% for post in posts %} 
-	<div>	
-		<h2>Title: {{ post.title }} </h2>
-		<p> {{ post.content }}</p>
-
-	</div>
-	{% endfor %}   
-
-	<form method="post">
+    <p> New  word</p>
+    <form method="post">
 		<label> label
 			<input name="title" type="text" required placeholder="enter here">
 		</label>
 		</br>
-		<textarea name="content" ></textarea>
+		<textarea name="content" placeholder="CONTENT"></textarea>
 		</br>
-		<input type="submit" value="Submit">
+		<input type="submit" value="Submit" id="submit">
+		</br>
+		
+		
 	</form>
 
+	<form method="post">
+		<button name="clearBtn" value="true"> Clear db </button>
+	</form>
+	
+	
+		
+	
+		{% for post in posts %}
+		<div>
+			<hr>
+			<h1> {{ post.title }} <h1>
+			<hr>
+			<h2> {{ post.text }} <h2>
+		</div>	
+		{% endfor %}
+	
+
+
+		{# <h1>Blog</h1>
+    {% for post in posts %} 
+	<div>	
+		<h2>Title: {{ post.title }} </h2>
+		<p> {{ post.text }}</p>
+		<p> New </p>
+
+	</div>
+	{% endfor %}   #}
 
 </body>
 </html>

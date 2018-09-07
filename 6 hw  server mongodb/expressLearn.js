@@ -42,7 +42,7 @@ const mongo = require('mongodb');
 /* нужно помнить что подключение(ниже client) 
 возможно будет происходить не сразу, поэтому нужно будет использовать
 простые колбеки, либо промисы */
-const client = mongo.connect('mongodb://127.0.0.1:27017')
+const client = mongo.connect('mongodb://127.0.0.1:27017', {useNewUrlParser: true},)
 
 
 /* express не умеет обрабатывать данные переданные POST запросом 
@@ -163,29 +163,44 @@ app.post("/", function(req, resp){
 // здесь 
 */
 
-// работа в связке с монгодб
-app.post("/posts", function(req, resp){
+
+
+app.get("/posts", function(req, resp){
     client.then(function(connection){
         const col = connection.db('check').collection('posts');
+        let allFound = col.find();
+        let toArr = allFound.toArray();
+        toArr.then(function(posts){
+                console.log(posts);
+                resp.render('posts', {posts: posts});
+
+        })
+    })
+});
+
+
+// работа в связке с монгодб
+app.post("/posts", function(req, resp){
+        client.then(function(connection){
+            const col = connection.db('check').collection('posts');
+ 
  /* express не умеет обрабатывать данные переданные POST запросом 
  (напрмиер в get мы могли их взять с помощью query).
  Фиксим подключением плагинов express.urlencoded() (или express.json() )
  через use, смотри вверху app.use(express.urlcoded), app.use(express.json).
  Теперь внутри request появляется свойство body, внутри которого есть
  вся инфа пришедшая от пользователя  */
-        let data = {content: req.body.content, title: req.body.title};
-        col.insertOne(data);
-        // resp.redirect('/posts');
-    })    
+            let data = {title: req.body.title, text: req.body.content};
+            if(data.title && data.text){
+                col.insertOne(data);
+            }
 
+            if(req.body.clearBtn){
+                col.drop();
+            }
+            
+            resp.redirect('/posts');
+        });
 });
-app.get("/posts", function(req, resp){
-    client.then(function(connection){
-        const col = connection.db('check').collection('posts');
-        col.find({}).toArray().then(function(posts){
-                resp.render('home', {posts: posts});
-        })
-    })    
-    resp.render('home'); 
-});
+
 
