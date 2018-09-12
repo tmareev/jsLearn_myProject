@@ -1,0 +1,10 @@
+{
+    "players":
+        [
+            {"lastname": "Rooney", "firstname": "Wane", "team": "Everton"},
+            {"lastname": "Ronaldo", "firstname": "Cristiano", "team": "real"},
+            {"lastname": "Zina", "firstname": "Alex", "team": "ManCity"},
+            {"lastname": "Mbappe", "firstname": "kilian", "team": "ManU"}
+        ]
+
+}
