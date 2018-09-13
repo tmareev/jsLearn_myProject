@@ -146,7 +146,7 @@ app.get('/', function(req, resp){
         greeting: 'Hello ',
         req: req,
 
-        colo: req.query.colorrry,
+        color: req.query.colorrry,
     }
     
     resp.render('home', vars);

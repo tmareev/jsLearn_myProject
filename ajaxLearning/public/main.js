@@ -1,5 +1,5 @@
-let logField = document.getElementsByName('login')[0];
+let registerBtn = document.querySelector('#registerBtn');
 
-logField.addEventListener('change', function(){
-    console.log('changed');
+registerBtn.addEventListener('click', function(){
+    console.log('register clicked');
 })
